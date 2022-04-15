@@ -76,20 +76,38 @@ def makeDeLZ77(d, c):
 # Создание LZSS кода
 def makeLZSS(d, ld, b, lb):
     i = d.find(b[0])
-    # Первый символ буфера в словаре не найден
+    # Первый символ буфера в словаре не найденpr
+    print('d=',d)
+    print('b=',b)
+    print('b[0]=', b[0])
     if (i == -1):
+        print('true')
         n = 1 # Сдвиг курсора
+        print('i=', i)
+        print('n=', n)
         Code = '0' + b[0] # Код LZSS
         sizeCode = 1 + sizeSymbol # Размер 1-го LZSS кода в битах
     # Первый символ буфера в словаре найден, смещение - i
     else:
         #TODO: Сделать
         n = 1 # Длина подстроки riИ сдвиг курсора
+        print('false')
+        while (i+n < len(d)):
+            print('i=', i)
+            print('i+n=', i + n)
+            print('n=', n)
+            if (len(b)<=n):
+                break;
+            if (d[i+n]==b[n]):
+                n += 1
+            else:
+                break
+
         Code = '1' + str36(i) + str36(n)
-        n = len(b[0])
-        # ... # Код LZSS
         sizeCode = 1 + ld + lb # Размер 1-го LZSS кода в битах
     # Сдвиг курсора, код и размер кода
+    print('Code=', Code)
+    print('-------------------------------------------')
     return n, Code, sizeCode
 
 # Декодирование LZSS кода
